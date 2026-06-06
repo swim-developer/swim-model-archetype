@@ -1,0 +1,115 @@
+#set( $symbol_pound = '#' )
+#set( $symbol_dollar = '$' )
+#set( $symbol_escape = '\' )
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 https://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <modelVersion>4.0.0</modelVersion>
+
+    <parent>
+        <groupId>com.github.swim-developer</groupId>
+        <artifactId>swim-developer</artifactId>
+        <version>1.0.0-SNAPSHOT</version>
+        <relativePath/>
+    </parent>
+
+    <artifactId>${artifactId}</artifactId>
+    <name>${dataStandard} ${modelDisplayName} Model</name>
+    <description>JAXB bindings for ${dataStandard} schemas used by ${modelDisplayName} events.</description>
+
+    <dependencies>
+        <dependency>
+            <groupId>jakarta.xml.bind</groupId>
+            <artifactId>jakarta.xml.bind-api</artifactId>
+            <version>4.0.5</version>
+        </dependency>
+        <dependency>
+            <groupId>org.glassfish.jaxb</groupId>
+            <artifactId>jaxb-runtime</artifactId>
+            <version>4.0.7</version>
+        </dependency>
+
+        <dependency>
+            <groupId>org.junit.jupiter</groupId>
+            <artifactId>junit-jupiter</artifactId>
+            <scope>test</scope>
+        </dependency>
+        <dependency>
+            <groupId>org.assertj</groupId>
+            <artifactId>assertj-core</artifactId>
+            <version>${symbol_dollar}{assertj.version}</version>
+            <scope>test</scope>
+        </dependency>
+    </dependencies>
+
+    <profiles>
+        <profile>
+            <id>generate-xjc</id>
+            <build>
+                <plugins>
+                    <plugin>
+                        <artifactId>maven-antrun-plugin</artifactId>
+                        <version>3.2.0</version>
+                        <executions>
+                            <execution>
+                                <id>clean-generated-sources</id>
+                                <phase>initialize</phase>
+                                <goals><goal>run</goal></goals>
+                                <configuration>
+                                    <target>
+                                        <!-- TODO: add <delete dir="..."/> entries for each generated package -->
+                                        <!-- Example: <delete dir="${symbol_dollar}{project.basedir}/src/main/java/aero/fixm/base" failonerror="false"/> -->
+                                    </target>
+                                </configuration>
+                            </execution>
+                            <execution>
+                                <id>copy-generated-classes</id>
+                                <phase>process-sources</phase>
+                                <goals><goal>run</goal></goals>
+                                <configuration>
+                                    <target>
+                                        <copy todir="${symbol_dollar}{project.basedir}/src/main/java" overwrite="true">
+                                            <fileset dir="${symbol_dollar}{project.build.directory}/generated-sources/xjc">
+                                                <include name="**/*.java"/>
+                                            </fileset>
+                                        </copy>
+                                        <copy todir="${symbol_dollar}{project.basedir}/src/main/resources/META-INF" overwrite="true">
+                                            <fileset dir="${symbol_dollar}{project.build.directory}/generated-sources/xjc/META-INF">
+                                                <include name="sun-jaxb.episode"/>
+                                            </fileset>
+                                        </copy>
+                                        <delete dir="${symbol_dollar}{project.build.directory}/generated-sources/xjc" failonerror="false"/>
+                                    </target>
+                                </configuration>
+                            </execution>
+                        </executions>
+                    </plugin>
+
+                    <plugin>
+                        <groupId>org.jvnet.jaxb</groupId>
+                        <artifactId>jaxb-maven-plugin</artifactId>
+                        <version>4.0.12</version>
+                        <executions>
+                            <execution>
+                                <id>xjc</id>
+                                <phase>generate-sources</phase>
+                                <goals><goal>generate</goal></goals>
+                            </execution>
+                        </executions>
+                        <configuration>
+                            <schemaDirectory>${symbol_dollar}{project.basedir}/src/main/resources/schemas</schemaDirectory>
+                            <schemaIncludes>
+                                <include>${rootSchema}</include>
+                            </schemaIncludes>
+                            <verbose>true</verbose>
+                            <bindingDirectory>${symbol_dollar}{project.basedir}/src/main/resources/bindings</bindingDirectory>
+                            <bindingIncludes>
+                                <include>*.xjb</include>
+                            </bindingIncludes>
+                        </configuration>
+                    </plugin>
+                </plugins>
+            </build>
+        </profile>
+    </profiles>
+</project>

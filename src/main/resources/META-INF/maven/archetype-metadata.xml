@@ -1,0 +1,66 @@
+<archetype-descriptor
+        xmlns="http://maven.apache.org/plugins/maven-archetype-plugin/archetype-descriptor/1.1.0"
+        name="swim-model-archetype">
+
+    <requiredProperties>
+        <requiredProperty key="modelName">
+            <defaultValue>mymodel</defaultValue>
+        </requiredProperty>
+        <requiredProperty key="modelDisplayName">
+            <defaultValue>My Model</defaultValue>
+        </requiredProperty>
+        <requiredProperty key="modelPrefix">
+            <defaultValue>Mymodel</defaultValue>
+        </requiredProperty>
+        <requiredProperty key="rootSchema">
+            <defaultValue>model.xsd</defaultValue>
+        </requiredProperty>
+        <requiredProperty key="dataStandard">
+            <defaultValue>FIXM</defaultValue>
+        </requiredProperty>
+    </requiredProperties>
+
+    <fileSets>
+        <fileSet filtered="true" packaged="true" encoding="UTF-8">
+            <directory>src/main/java</directory>
+            <includes>
+                <include>**/*.java</include>
+            </includes>
+        </fileSet>
+        <fileSet filtered="true" packaged="true" encoding="UTF-8">
+            <directory>src/test/java</directory>
+            <includes>
+                <include>**/*.java</include>
+            </includes>
+        </fileSet>
+        <fileSet filtered="true" encoding="UTF-8">
+            <directory>src/main/resources</directory>
+            <includes>
+                <include>**/*.xjb</include>
+                <include>**/.gitkeep</include>
+            </includes>
+        </fileSet>
+        <fileSet filtered="true" encoding="UTF-8">
+            <directory></directory>
+            <includes>
+                <include>Makefile</include>
+                <include>README.md</include>
+                <include>.gitignore</include>
+                <include>owasp-suppressions.xml</include>
+                <include>LICENSE</include>
+            </includes>
+        </fileSet>
+        <fileSet filtered="false">
+            <includes>
+                <include>mvnw</include>
+                <include>mvnw.cmd</include>
+            </includes>
+        </fileSet>
+        <fileSet filtered="false">
+            <directory>.mvn</directory>
+            <includes>
+                <include>wrapper/maven-wrapper.properties</include>
+            </includes>
+        </fileSet>
+    </fileSets>
+</archetype-descriptor>

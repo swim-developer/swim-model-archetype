@@ -1,0 +1,24 @@
+#set( $symbol_pound = '#' )
+#set( $symbol_dollar = '$' )
+#set( $symbol_escape = '\' )
+<?xml version="1.0" encoding="UTF-8"?>
+<jaxb:bindings xmlns:jaxb="https://jakarta.ee/xml/ns/jaxb"
+               xmlns:xjc="http://java.sun.com/xml/ns/jaxb/xjc"
+               xmlns:xs="http://www.w3.org/2001/XMLSchema"
+               jaxb:extensionBindingPrefixes="xjc"
+               version="3.0">
+
+    <jaxb:globalBindings>
+        <xjc:serializable uid="1"/>
+    </jaxb:globalBindings>
+
+    <!-- TODO: add schema-to-package bindings for your XSD files -->
+    <!--
+    <jaxb:bindings schemaLocation="../schemas/${rootSchema}" node="/xs:schema">
+        <jaxb:schemaBindings>
+            <jaxb:package name="${package}"/>
+        </jaxb:schemaBindings>
+    </jaxb:bindings>
+    -->
+
+</jaxb:bindings>
